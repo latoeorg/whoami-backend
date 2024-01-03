@@ -10,94 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ======================================
-// TABLE USERS
-// ======================================
-
-enum enum_user_role {
-  SUPERUSER
-  USER
+model tbm_skill {
+  id         String                   @id @default(uuid())
+  title      String
+  year       Int
+  created_by String
+  created_at DateTime                 @default(now())
+  updated_at DateTime                 @updatedAt
+  project    tbl_project_technology[]
 }
 
-model tbm_user {
-  id         String         @id @default(uuid())
-  name       String
-  email      String         @unique
-  username   String         @unique
-  password   String
-  role       enum_user_role @default(USER)
-  is_delete  Boolean        @default(false)
-  updated_at DateTime       @default(now())
-  created_at DateTime       @default(now())
+model tbl_project {
+  id          String                   @id @default(uuid())
+  thumbnail   String?                  @default("")
+  title       String
+  description String?                  @default("")
+  source_code String?                  @default("")
+  url         String?                  @default("")
+  created_by  String
+  created_at  DateTime                 @default(now())
+  updated_at  DateTime                 @updatedAt
+  technology  tbl_project_technology[]
 }
 
-// ======================================
-// TABLE MASTER WALLET
-// ======================================
-
-model tbm_wallet_category_group {
-  id         String   @id @default(uuid())
-  name       String
-  is_delete  Boolean  @default(false)
-  updated_at DateTime @default(now())
-  created_at DateTime @default(now())
-}
-
-model tbm_wallet_category {
-  id         String   @id @default(uuid())
-  name       String
-  image_path String
-  is_delete  Boolean  @default(false)
-  updated_at DateTime @default(now())
-  created_at DateTime @default(now())
-  id_group   Int
-}
-
-// ======================================
-// TABLE MASTER TRANSACTION
-// ======================================
-
-model tbm_transaction_category_group {
-  id         String   @id @default(uuid())
-  name       String
-  is_delete  Boolean  @default(false)
-  updated_at DateTime @default(now())
-  created_at DateTime @default(now())
-}
-
-model tbm_transaction_category {
-  id         String   @id @default(uuid())
-  name       String
-  image_path String
-  is_delete  Boolean  @default(false)
-  updated_at DateTime @default(now())
-  created_at DateTime @default(now())
-  id_group   Int
-}
-
-// ======================================
-// MAIN TABLE
-// ======================================
-
-model tbl_wallet {
-  id          String   @id @default(uuid())
-  name        String
-  balance     Float    @default(0)
-  is_delete   Boolean  @default(false)
-  updated_at  DateTime @default(now())
-  created_at  DateTime @default(now())
-  id_category Int
-}
-
-model tbl_transaction {
-  id          String   @id @default(uuid())
-  amount      Float
-  note        String?
-  date        DateTime
-  image_path  String?
-  id_category Int
-  id_wallet   Int
-  is_delete   Boolean  @default(false)
-  updated_at  DateTime @default(now())
-  created_at  DateTime @default(now())
+model tbl_project_technology {
+  id         String      @id @default(uuid())
+  project_id String
+  skill_id   String
+  project    tbl_project @relation(fields: [project_id], references: [id])
+  skill      tbm_skill   @relation(fields: [skill_id], references: [id])
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
 }

@@ -5,6 +5,7 @@ import logger from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { ENV } from "./constant";
+import Routes from "./routes";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app
   .use(express.urlencoded({ extended: false }))
   .use(cookieParser())
   .use(express.static(path.join(__dirname, "public")));
+
+Routes(app);
 
 const port = ENV.API_PORT || 3000;
 app.listen(port, () => {
