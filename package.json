@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "dev": "nodemon --exec \"node -r esbuild-register index.ts\" -e .ts",
+    "dev": "nodemon index.ts",
     "lint": "tsc --noEmit && eslint \"src/**/*.ts*\" --max-warnings 0",
     "start": "node -r esbuild-register index.ts",
     "test": "jest --detectOpenHandles",
@@ -45,6 +45,7 @@
     "nodemon": "^3.0.1",
     "prisma": "^5.7.1",
     "supertest": "^6.3.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.2"
   }
 }

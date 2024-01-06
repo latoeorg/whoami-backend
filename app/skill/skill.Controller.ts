@@ -7,7 +7,6 @@ import {
   UpdateSkill,
 } from "./skill.Repository";
 import { InternalServerError, Ok } from "../../utils/http-response";
-import { ISkill } from "../../types";
 
 export const GetSkill = async (req: Request, res: Response) => {
   try {
@@ -15,7 +14,7 @@ export const GetSkill = async (req: Request, res: Response) => {
 
     const { search, page, limit } = req.query;
 
-    const skills: ISkill[] = await FetchSkill({
+    const skills: any[] = await FetchSkill({
       created_by: created_by as string,
       search: search as string,
       limit: limit as string,
@@ -46,7 +45,7 @@ export const GetSkillById = async (req: Request, res: Response) => {
 
 export const CreateSKill = async (req: Request, res: Response) => {
   try {
-    const data: ISkill = req.body;
+    const data: any = req.body;
 
     data.created_by = req.cookies.user.id;
     await StoreSKill(data);
@@ -60,7 +59,7 @@ export const CreateSKill = async (req: Request, res: Response) => {
 export const EditSkill = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const data: ISkill = req.body;
+    const data: any = req.body;
 
     await UpdateSkill(id, data);
 

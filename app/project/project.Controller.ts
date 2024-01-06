@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { InternalServerError, Ok } from "../../utils/http-response";
-import { IApiParams, IProject } from "../../types";
 import {
   DestroyAllProjectTechnology,
   DestroyProject,
@@ -62,7 +61,7 @@ export const GetProjectById = async (req: Request, res: Response) => {
 
 export const CreateProject = async (req: Request, res: Response) => {
   try {
-    const data: IProject = req.body;
+    const data: any = req.body;
 
     if (req.file) data.thumbnail = req.file.filename;
     else data.thumbnail = "";
@@ -89,7 +88,7 @@ export const CreateProject = async (req: Request, res: Response) => {
 export const EditProject = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const data: IProject = req.body;
+    const data: any = req.body;
 
     const oldProject = await FetchProjectById(id);
 

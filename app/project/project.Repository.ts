@@ -1,4 +1,3 @@
-import { IApiParams, IProject, IProjectTechnology } from "../../types";
 import prisma from "../../utils/prisma";
 
 export const FetchProject = async ({
@@ -64,7 +63,7 @@ export const FetchProjectById = async (id: string) => {
   });
 };
 
-export const StoreProject = async (data: IProject) => {
+export const StoreProject = async (data: any) => {
   return await prisma.tbl_project.create({
     data: {
       title: data.title,
@@ -77,7 +76,7 @@ export const StoreProject = async (data: IProject) => {
   });
 };
 
-export const StoreProjectTechnology = async (data: IProjectTechnology) => {
+export const StoreProjectTechnology = async (data: any) => {
   return await prisma.tbl_project_technology.create({
     data: {
       project_id: data.project_id,
@@ -86,7 +85,7 @@ export const StoreProjectTechnology = async (data: IProjectTechnology) => {
   });
 };
 
-export const UpdateProject = async (id: string, data: IProject) => {
+export const UpdateProject = async (id: string, data: any) => {
   return await prisma.tbl_project.update({
     where: {
       id: id,

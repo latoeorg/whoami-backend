@@ -1,4 +1,3 @@
-import { ISkill } from "../../types";
 import prisma from "../../utils/prisma";
 
 export const FetchSkill = async ({
@@ -43,7 +42,7 @@ export const FetchSkillById = async (id: string) => {
   });
 };
 
-export const StoreSKill = async (data: ISkill) => {
+export const StoreSKill = async (data: any) => {
   return await prisma.tbm_skill.create({
     data: {
       title: data.title,
@@ -53,7 +52,7 @@ export const StoreSKill = async (data: ISkill) => {
   });
 };
 
-export const UpdateSkill = async (id: string, data: ISkill) => {
+export const UpdateSkill = async (id: string, data: any) => {
   return await prisma.tbm_skill.update({
     where: {
       id: id,

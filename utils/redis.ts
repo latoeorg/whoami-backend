@@ -1,9 +1,8 @@
 import { createClient } from "redis";
-
-const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
+import { ENV } from "../constant";
 
 export const redisClient = createClient({
-  url: redisUrl,
+  url: ENV.REDIS_URL,
 });
 
 const EXPIRED_TIME = 60 * 60 * 24;
